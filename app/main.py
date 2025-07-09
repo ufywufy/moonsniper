@@ -54,6 +54,9 @@ filters = config["filters"]
 watchlist_path = config.get("watchlist", "watchlist.txt")
 polygon_key = config.get("polygon", {}).get("api_key")
 has_polygon = bool(polygon_key and polygon_key != "YOUR_API_KEY_HERE")
+
+st.set_page_config(layout="wide")
+
 st.title("🌒 Moon Sniper v0.1")
 st.markdown("[by @ufywufy](https://github.com/ufywufy)", unsafe_allow_html=True)
 col1, col2 = st.columns([5, 4])
