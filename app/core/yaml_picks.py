@@ -30,9 +30,9 @@ class YamlPicks:
         for _, row in df_picks.iterrows():
             reasons = []
             if row["Price"] <= orig_price:
-                reasons.append(f"Price {row["Price"]:.2f}≤{orig_price}")
+                reasons.append(f"Price {row['Price']:.2f}≤{orig_price}")
             if row["RSI"] <= orig_rsi:
-                reasons.append(f"RSI {row["RSI"]:.1f}≤{orig_rsi}")
+                reasons.append(f"RSI {row['RSI']:.1f}≤{orig_rsi}")
             if row["Volume"] > orig_vol_mul * row["Avg Vol"]:
                 reasons.append("Vol spike")
             if row["Market Cap"] <= orig_mc:
