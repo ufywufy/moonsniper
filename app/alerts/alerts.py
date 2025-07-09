@@ -69,16 +69,16 @@ def alert_eval(expr_text, row):
         context = {k.replace(" ", ""): v for k, v in row.items()}
         return eval(expr_text, {}, context)
     except Exception as e:
-        return f"[Alert Error] {row.get("Ticker", "???")} -> {e}"
+        return f"[Alert Error] {row.get('Ticker', '???')} -> {e}"
 
 
 def send_alert(channel, message, df, ticker, config, alertjson=None):
     if channel == "desktop":
         try:
             from plyer import notification
-            title = f"🌒 Moon Sniper Alert {datetime.now().strftime("%H:%M:%S")}"
+            title = f'🌒 Moon Sniper Alert {datetime.now().strftime("%H:%M:%S")}'
 
-            body = f"{ticker} - {alertjson.get("message", message)}"
+            body = f"{ticker} - {alertjson.get('message', message)}"
 
             if len(body) > 250:  # Windows limit is 256
                 body = body[:247] + "..."
