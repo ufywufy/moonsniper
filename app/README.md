@@ -68,7 +68,9 @@ Moon Sniper is alpha-stage software. This was built fast, ugly, but functional. 
 
 Ideas? Feedback? Need help? Just wanna vibe?
 Whether you're a beginner or a seasoned sniper, reach out, open an issue, or submit a pull request (please)
+
 https://discord.gg/E6x2wFzCtX
+
 Happy sniping.
 ufywfuy
 
