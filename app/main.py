@@ -325,7 +325,7 @@ with col1:
             nums = [
                 int(match.group(1))
                 for f in existing
-                if (match := re.match(rf"{base_name}(\d*)\.txt", f))
+                if (match := re.match(rf"{base_name}(\d*)\.txt", f)) and match.group(1)
             ]
             next_num = max(nums, default=0) + 1
             filename = f"{base_name}{next_num if next_num > 1 else ''}.txt"
