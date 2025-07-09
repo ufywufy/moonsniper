@@ -109,6 +109,7 @@ def check_alerts(df, config):
             result = alert_eval(alert["expression"], row_dict)
             key = (ticker, alert["expression"])
             if result is True and key not in triggered_alerts:
+                print(f"[ALERT] Ticker: {ticker} | Expression: {alert['expression']}")
                 triggered.append((alert, row, ticker))
                 triggered_alerts.add(key)
             elif isinstance(result, str):
@@ -132,6 +133,7 @@ def check_alerts(df, config):
                 if "triggered" not in alert:
                     alert["triggered"] = []
                 if row_dict.get("Ticker", "") not in alert["triggered"]:
+                    print(f"[ALERT] Scanner: {alert.get('id', '?')} | Ticker: {row_dict.get('Ticker', '')} | Expression: {alert['expression']}")
                     triggered.append((alert, row, row_dict.get("Ticker", "")))
                     alert["triggered"].append(row_dict.get("Ticker", ""))
 
