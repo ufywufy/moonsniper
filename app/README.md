@@ -72,6 +72,7 @@ Whether you're a beginner or a seasoned sniper, reach out, open an issue, or sub
 https://discord.gg/E6x2wFzCtX
 
 Happy sniping.
+
 ufywfuy
 
 ## License
