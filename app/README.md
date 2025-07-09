@@ -26,16 +26,17 @@ AI powered 👀
 1. Install Requirements
 Install Python
 Run `setup.bat` which downloads all the requirements
+Or navigate to app/ and run `pip install -r requirements.txt`
 
-2. Setup Config
+3. Setup Config
 Fill out config.yaml, you can open this as a `.txt` file
 Add watchlists as `.txt` files (1 ticker per line) inside the watchlists/ folder
 
-3. Launch Streamlit UI
+4. Launch Streamlit UI
 Run `main.bat`
 This opens your local web UI where you do everything
 
-4. Start the Alerts Daemon (Optional)
+5. Start the Alerts Daemon (Optional)
 If you don't have the UI open, you can run `alerts.bat` which will run your alerts in the background
 
 ## 🔢 Expression Syntax
