@@ -1,0 +1,11 @@
+streamlit>=1.30
+pandas
+yfinance
+pyyaml
+requests
+pytz
+ta
+plotly
+streamlit-aggrid
+streamlit-autorefresh
+plyer

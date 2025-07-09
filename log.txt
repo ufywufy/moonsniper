@@ -1,0 +1,91 @@
+2025-07-08 20:16:41,358 [ERROR] 
+2 Failed downloads:
+2025-07-08 20:16:41,358 [ERROR] ['SQ', 'BBBYQ']: YFPricesMissingError('possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")')
+2025-07-08 20:16:42,541 [INFO] [DONE] Fetched 53 tickers.
+2025-07-08 20:16:43,558 [INFO] [Webhook Alert] fdsa ✅ -> https://discord.com/api/webhooks/1391267375328006258/sUEsZwv7OzxA6TdmGZ89YsZows2EiD2moEYCMvy6M01q4eUsp2yopH8NJ8dODzIb3x_Q
+2025-07-08 20:16:44,000 [INFO] [Webhook Alert] fdsa ✅ -> https://discord.com/api/webhooks/1391267384035377233/Z2xPk009H9S1L6rBwMsNqosRmLCjnpecfjO6bTcdvcgUUzNj-NGd2JW0C5BUqM1tRCgP
+2025-07-08 20:16:44,000 [INFO] [Webhook Error] YOUR_WEBHOOK_URL_HERE -> Invalid URL 'YOUR_WEBHOOK_URL_HERE': No scheme supplied. Perhaps you meant https://YOUR_WEBHOOK_URL_HERE?
+2025-07-08 20:16:44,001 [INFO] [Webhook Error] YOUR_WEBHOOK_URL_HERE -> Invalid URL 'YOUR_WEBHOOK_URL_HERE': No scheme supplied. Perhaps you meant https://YOUR_WEBHOOK_URL_HERE?
+2025-07-08 20:18:20,232 [INFO] [Email Error] 401: {"message":"Key not found","code":"unauthorized"}
+2025-07-08 20:18:51,384 [ERROR] 
+2 Failed downloads:
+2025-07-08 20:18:51,385 [ERROR] ['SQ', 'BBBYQ']: YFPricesMissingError('possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")')
+2025-07-08 20:18:52,643 [INFO] [DONE] Fetched 53 tickers.
+2025-07-08 20:21:26,480 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK']
+2025-07-08 20:21:26,480 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK']
+2025-07-08 20:21:26,481 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK', 'ms:filter,RSI Spike > 70,pc<1000,rsit<70,vm<0.5,mcc:1000KKK,fc:1KKK']
+2025-07-08 20:21:26,481 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK', 'ms:filter,RSI Spike > 70,pc<1000,rsit<70,vm<0.5,mcc:1000KKK,fc:1KKK', 'ms:filter,Moon Sniper,pc<20,rsit<65,vm<2.0,mcc:2KKK,fc:50KK']
+2025-07-08 20:21:26,481 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK', 'ms:filter,RSI Spike > 70,pc<1000,rsit<70,vm<0.5,mcc:1000KKK,fc:1KKK', 'ms:filter,Moon Sniper,pc<20,rsit<65,vm<2.0,mcc:2KKK,fc:50KK', 'ms:filter,Under the Radar,pc<10,rsit<50,vm<0.7,mcc:1KKK,fc:25KK']
+2025-07-08 20:21:26,482 [INFO] [Exported] 5 filter DNA lines -> output\dna_filter.txt
+2025-07-08 20:22:21,644 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,646 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,650 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,653 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,655 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,657 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,658 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,660 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,661 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,663 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:21,665 [INFO] [Desktop Alert] dfsdf ✅
+2025-07-08 20:22:38,412 [INFO] [Exported] 3 alert DNA lines -> output\dna_alert.txt
+2025-07-08 20:28:56,465 [ERROR] 
+1 Failed download:
+2025-07-08 20:28:56,465 [ERROR] ['SQ']: YFPricesMissingError('possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")')
+2025-07-08 20:28:57,185 [INFO] [DONE] Fetched 52 tickers.
+2025-07-08 21:12:59,798 [INFO] [Exported] 3 alert DNA lines -> output\dna_alert.txt
+2025-07-08 21:13:48,601 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK']
+2025-07-08 21:13:48,602 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK']
+2025-07-08 21:13:48,602 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK', 'ms:filter,RSI Spike > 70,pc<1000,rsit<70,vm<0.5,mcc:1000KKK,fc:1KKK']
+2025-07-08 21:13:48,603 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK', 'ms:filter,RSI Spike > 70,pc<1000,rsit<70,vm<0.5,mcc:1000KKK,fc:1KKK', 'ms:filter,Moon Sniper,pc<20,rsit<65,vm<2.0,mcc:2KKK,fc:50KK']
+2025-07-08 21:13:48,603 [INFO] ['ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK', 'ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK', 'ms:filter,RSI Spike > 70,pc<1000,rsit<70,vm<0.5,mcc:1000KKK,fc:1KKK', 'ms:filter,Moon Sniper,pc<20,rsit<65,vm<2.0,mcc:2KKK,fc:50KK', 'ms:filter,Under the Radar,pc<10,rsit<50,vm<0.7,mcc:1KKK,fc:25KK']
+2025-07-08 21:13:48,604 [INFO] [Exported] 5 filter DNA lines -> output\dna_filter.txt
+2025-07-08 21:14:07,322 [INFO] slected
+2025-07-08 21:14:07,322 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:10,746 [INFO] slected
+2025-07-08 21:14:10,747 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:10,836 [INFO] slected
+2025-07-08 21:14:10,837 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:12,927 [INFO] slected
+2025-07-08 21:14:12,927 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:13,742 [INFO] slected
+2025-07-08 21:14:13,742 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:14,556 [INFO] slected
+2025-07-08 21:14:14,556 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:18,346 [INFO] slected
+2025-07-08 21:14:18,346 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:20,412 [INFO] slected
+2025-07-08 21:14:20,412 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:27,206 [INFO] slected
+2025-07-08 21:14:27,206 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:28,797 [INFO] slected
+2025-07-08 21:14:28,797 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:38,912 [INFO] slected
+2025-07-08 21:14:38,912 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:41,325 [INFO] slected
+2025-07-08 21:14:41,325 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:42,260 [INFO] slected
+2025-07-08 21:14:42,260 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:43,139 [INFO] slected
+2025-07-08 21:14:43,140 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:45,588 [INFO] slected
+2025-07-08 21:14:45,588 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:46,016 [INFO] slected
+2025-07-08 21:14:46,016 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:47,917 [INFO] slected
+2025-07-08 21:14:47,918 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:47,991 [INFO] slected
+2025-07-08 21:14:47,991 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:48,756 [INFO] slected
+2025-07-08 21:14:48,757 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:48,835 [INFO] slected
+2025-07-08 21:14:48,835 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:49,450 [INFO] slected
+2025-07-08 21:14:49,450 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:49,529 [INFO] slected
+2025-07-08 21:14:49,529 [INFO] {'name': 'dsfdfthe Radar', 'price_ceiling': 100.0, 'rsi_threshold': 50.0, 'volume_multiplier': 0.7, 'market_cap_ceiling': 1000000000, 'float_ceiling': 25000000}
+2025-07-08 21:14:49,739 [ERROR] AAPL: Period 'all' is invalid, must be one of: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max
+2025-07-08 21:31:15,455 [ERROR] 
+1 Failed download:
+2025-07-08 21:31:15,455 [ERROR] ['SQ']: YFPricesMissingError('possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")')
+2025-07-08 21:31:16,120 [INFO] [DONE] Fetched 52 tickers.
