@@ -1,6 +1,7 @@
 # 🌒 Moon Sniper
 
 Moon Sniper is a completely FREE, open source stock screener and alerting platform you can run locally. Powered by Python + Streamlit. Upload your own `.txt` watchlists and unlock a plethora of awesome tools most platforms hide behind subscriptions:
+Demo here -> https://www.youtube.com/watch?v=KVk3TEjbimY
 
 ## 🔫 Features
 
