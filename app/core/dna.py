@@ -27,11 +27,11 @@ def export_dna(data_type):
         for name, profile in filters.items():
             parts = ["ms:filter", name]
             if "price_ceiling" in profile:
-                parts.append(f"pc<{int(profile["price_ceiling"])}")
+                parts.append(f"pc<{int(profile['price_ceiling'])}")
             if "rsi_threshold" in profile:
-                parts.append(f"rsit<{int(profile["rsi_threshold"])}")
+                parts.append(f"rsit<{int(profile['rsi_threshold'])}")
             if "volume_multiplier" in profile:
-                parts.append(f"vm<{float(profile["volume_multiplier"])}")
+                parts.append(f"vm<{float(profile['volume_multiplier'])}")
             if "market_cap_ceiling" in profile:
                 mcc = int(profile["market_cap_ceiling"])
                 parts.append(f"mcc:{format_big(mcc)}")
@@ -39,7 +39,7 @@ def export_dna(data_type):
                 fc = int(profile["float_ceiling"])
                 parts.append(f"fc:{format_big(fc)}")
             if "macd_enabled" in profile:
-                parts.append(f"MACD:{str(profile["macd_enabled"])}")
+                parts.append(f"MACD:{str(profile['macd_enabled'])}")
             dna_strings.append(",".join(parts))
             print(dna_strings)
 
@@ -52,11 +52,11 @@ def export_dna(data_type):
         for ticker, alerts in alerts_data.get("tickers", {}).items():
             for a in alerts:
                 parts = ["ms:alert", ticker, a["expression"], a["channel"]]
-                parts.append(f"message:{a["message"]}")
+                parts.append(f"message:{a['message']}")
                 dna_strings.append(",".join(parts))
         for a in alerts_data.get("scanners", []):
             parts = ["ms:alert", "*", a["expression"], a["channel"]]
-            parts.append(f"message:{a["message"]}")
+            parts.append(f"message:{a['message']}")
             dna_strings.append(",".join(parts))
 
     # Ensure output directory exists
