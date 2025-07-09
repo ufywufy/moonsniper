@@ -56,14 +56,29 @@ polygon_key = config.get("polygon", {}).get("api_key")
 has_polygon = bool(polygon_key and polygon_key != "YOUR_API_KEY_HERE")
 
 st.set_page_config(layout="wide")
-
+# Inject dark mode theme
+dark_mode_css = """
+<style>
+body {
+    background-color: #0E1117 !important;
+    color: white !important;
+}
+[data-testid="stAppViewContainer"] {
+    background-color: #0E1117 !important;
+}
+[data-testid="stSidebar"] {
+    background-color: #161B22 !important;
+}
+</style>
+"""
+st.markdown(dark_mode_css, unsafe_allow_html=True)
 st.title("🌒 Moon Sniper v0.1")
 st.markdown("[by @ufywufy](https://github.com/ufywufy)", unsafe_allow_html=True)
 col1, col2 = st.columns([5, 4])
 
-"""
-RIGHT COLUMN SLIDERS AND STUFF
-"""
+
+# RIGHT COLUMN SLIDERS AND STUFF
+
 with col2:
     st.subheader("⚙️ Filters")
     filters_path = "filters.json"
@@ -259,9 +274,8 @@ with col2:
 
     picks_placeholder = st.empty()
 
-"""
-LEFT COLUMN BUILD CHART
-"""
+# LEFT COLUMN BUILD CHART
+
 with col1:
     
     d = WatchlistDf(watchlist_path)
