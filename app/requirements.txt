@@ -4,7 +4,6 @@ yfinance
 pyyaml
 requests
 pytz
-stocknews
 ta
 plotly
 streamlit-aggrid
