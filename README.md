@@ -4,22 +4,31 @@ Moon Sniper is a completely FREE, open source stock screener and alerting platfo
 
 ## 🔫 Features
 
-- Interactive table with 9 key stat columns (Price, RSI, Avg Vol, Market Cap, Float, etc.)
-- Dynamic filtering, ascending/descending rows, sliders, values
+- Interactive table with 12 key stat columns (Price, RSI, % Change, Avg Vol, Market Cap, Float, PE Ratio, EPS, etc.)
+- Dynamic filtering, ascending/descending rows, sliders, and value selectors
 - Custom filter profiles (ex: breakout, dip catcher, moon sniper, safe growth)
-- Export filtered tickers as a txt file
-- Advanced filter expression (ex: RSI < 30 and Price > 40)
-- Charts across all timeframes + after hours + volume bars, refreshes every 5 mins
-- Unlimited custom alerts with filter logic via emails, webhooks or desktop. No expiration, no limits.
+- Export filtered tickers as `.txt` files
+- Advanced filter expressions (ex: RSI < 30 and Price > 40)
+- Intraday and extended hours charts with volume bars and MACD/RSI indicators, auto-refresh every 5 min
+- Sentiment-analyzed news headlines from AlphaVantage + FinBERT
+- Unlimited custom alerts with filter logic via emails, webhooks, or desktop. No expiration, no limits.
 - DNA codes for profiles and alerts, share and import setups with a click!
 
 All you need is Python, then run `setup.bat` and `main.bat`
 
-Coming soon:
-Batch csvs + graphs + formatted datasets to plug and play into ML models
-Historical analysis
-Advanced chart indicators, custom chart indicators, smart heuristic summaries
-AI powered 👀
+## 🚀 v0.2 Update Highlights
+
+- 📈 Added PE Ratio, EPS, and daily % Change to stat table
+- 🧠 AI-powered sentiment analysis on recent news headlines per ticker
+- 🖼️ Integrated dynamic charts with after-hours data, MACD/RSI toggles
+- ⚙️ Smarter caching and performance improvements
+- 🧪 Prepping for ML-compatible CSV output and historical logs
+
+Updated config.yaml
+    + added field alpha_key
+    + added field news_limit (headlines shown at a time)
+Updated dna format
+Updated filters/profile
 
 ## 🛠️ Getting Started
 
