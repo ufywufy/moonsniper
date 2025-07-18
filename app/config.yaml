@@ -1,4 +1,4 @@
-watchlist: watchlists/troll.txt
+watchlist: watchlists/popular.txt
 
 filters:
   price_ceiling: 15.0           # tighter sniper threshold
