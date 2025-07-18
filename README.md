@@ -18,9 +18,9 @@ All you need is Python, then run `setup.bat` and `main.bat`
 
 ## 🚀 v0.2 Update Highlights
 
-- 📈 Added PE Ratio, EPS, and daily % Change to stat table
+- 📈 Added PE Ratio, EPS, and daily % Change to stat table and filters
 - 🧠 AI-powered sentiment analysis on recent news headlines per ticker
-- 🖼️ Integrated dynamic charts with after-hours data, MACD/RSI toggles
+- 🖼️ Charts with indicators EMA 9, VWAP and Bollinger Bands
 - ⚙️ Smarter caching and performance improvements
 - 🧪 Prepping for ML-compatible CSV output and historical logs
 
