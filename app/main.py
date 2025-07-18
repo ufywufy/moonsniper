@@ -20,6 +20,7 @@ from core.yaml_picks import YamlPicks
 
 # Chart UI
 from ui.chart import Chart
+from core.news import get_news
 from alerts.alerts_ui import show_alert_modal  # new import for alert modal
 from streamlit_autorefresh import st_autorefresh
 
@@ -32,7 +33,6 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout)  # Optional: still shows in terminal
     ]
 )
-
 # Redirect print() to logging.info
 class StreamToLogger:
     def __init__(self, level):
@@ -52,17 +52,35 @@ with open("config.yaml") as f:
     config = yaml.safe_load(f)
 filters = config["filters"]
 watchlist_path = config.get("watchlist", "watchlist.txt")
-polygon_key = config.get("polygon", {}).get("api_key")
+polygon_key = config.get("api_keys", {}).get("polygon")
+alpha_key = config.get("api_keys", {}).get("alpha")
 has_polygon = bool(polygon_key and polygon_key != "YOUR_API_KEY_HERE")
+has_alpha = bool(alpha_key and alpha_key != "YOUR_API_KEY_HERE")
+news_limit = config.get("news_limit")
 
 st.set_page_config(layout="wide")
-st.title("🌒 Moon Sniper v0.1")
+# Inject dark mode theme
+dark_mode_css = """
+<style>
+body {
+    background-color: #0E1117 !important;
+    color: white !important;
+}
+[data-testid="stAppViewContainer"] {
+    background-color: #0E1117 !important;
+}
+[data-testid="stSidebar"] {
+    background-color: #161B22 !important;
+}
+</style>
+"""
+st.markdown(dark_mode_css, unsafe_allow_html=True)
+st.title("🌒 Moon Sniper v0.2")
 st.markdown("[by @ufywufy](https://github.com/ufywufy)", unsafe_allow_html=True)
 col1, col2 = st.columns([5, 4])
 
-"""
-RIGHT COLUMN SLIDERS AND STUFF
-"""
+# RIGHT COLUMN SLIDERS AND STUFF
+
 with col2:
     st.subheader("⚙️ Filters")
     filters_path = "filters.json"
@@ -103,7 +121,6 @@ with col2:
                         st.rerun()
         # Use profile as defaults if selected
         default_vals = filter_profiles[st.session_state.selected_profile] if st.session_state.selected_profile != "(None)" else filters
-        print("slected", filter_profiles[st.session_state.selected_profile])
         # After the selectbox for selected_profile
         if "last_profile" not in st.session_state:
             st.session_state.last_profile = st.session_state.selected_profile
@@ -151,6 +168,29 @@ with col2:
         vol_input = st.number_input(" ", min_value=0.0, value=vol_mul, step=0.1)
         if vol_input != vol_mul:
             vol_mul = vol_input
+    pe_col1, pe_col2 = st.columns([3, 1])
+    with pe_col1:
+        pe_max = st.slider("PE Ratio Max", 0.0, 100.0, float(default_vals.get("pe_max", 20.0)))
+    with pe_col2:
+        pe_input = st.number_input(" ", value=pe_max, step=0.1)
+        if pe_input != pe_max:
+            pe_max = pe_input
+    eps_col1, eps_col2 = st.columns([3, 1])
+    with eps_col1:
+        eps_min = st.slider("EPS Minimum", -30.0, 50.0, float(default_vals.get("eps_min", -10.0)))
+    with eps_col2:
+        eps_input = st.number_input(" ", value=eps_min, step=0.1)
+        if eps_input != eps_min:
+            eps_min = eps_input
+    pct_col1, pct_col2 = st.columns([3, 1])
+    with pct_col1:
+        pct_min = st.slider("% Change Min", -50.0, 50.0, float(default_vals.get("pct_min", -50.0)))
+    with pct_col2:
+        pct_input = st.number_input(" ", value=pct_min, step=1.0)
+        if pct_input != pct_min:
+            pct_min = pct_input
+
+
 
     mc_col, float_col = st.columns(2)
     with mc_col:
@@ -191,7 +231,10 @@ with col2:
             "volume_multiplier": vol_mul,
             "market_cap_ceiling": market_cap_c,
             "float_ceiling": float_c,
-            "only_positive_macd": macd_c
+            "only_positive_macd": macd_c,
+            "pe_max": pe_max,
+            "eps_min": eps_min,
+            "pct_min": pct_min
         }
         for k in current:
             if current[k] != saved.get(k):
@@ -211,7 +254,11 @@ with col2:
                 "volume_multiplier": vol_mul,
                 "market_cap_ceiling": market_cap_c,
                 "float_ceiling": float_c,
-                "only_positive_macd": macd_c
+                "only_positive_macd": macd_c,
+                "pe_max": pe_max,
+                "eps_min": eps_min,
+                "pct_min": pct_min
+
             }
 
             try:
@@ -258,16 +305,15 @@ with col2:
 
     picks_placeholder = st.empty()
 
-"""
-LEFT COLUMN BUILD CHART
-"""
+# LEFT COLUMN BUILD CHART
+
 with col1:
     
     d = WatchlistDf(watchlist_path)
     df = d.build_df()
     # apply filters
     view = WatchlistView(df)
-    view.apply_filters(price_c, rsi_c, vol_mul, market_cap_c, float_c, macd_c)
+    view.apply_filters(price_c, rsi_c, vol_mul, market_cap_c, float_c, macd_c, pe_max, eps_min, pct_min)
     view.format_df()
     check_alerts(view.df, config)
     search = st.text_input("🔎 Search watchlist")
@@ -310,7 +356,7 @@ with col1:
             nums = [
                 int(match.group(1))
                 for f in existing
-                if (match := re.match(rf"{base_name}(\d*)\.txt", f))
+                if (match := re.match(rf"{base_name}(\d*)\.txt", f)) and match.group(1)
             ]
             next_num = max(nums, default=0) + 1
             filename = f"{base_name}{next_num if next_num > 1 else ''}.txt"
@@ -352,6 +398,32 @@ with col1:
         intra = st.session_state["show_intraday"]
     else:
         intra = True
+    # Ensure defaults exist (only runs once)
+    for key in ("indicator_ema9","indicator_vwap","indicator_bbands"):
+        if key not in st.session_state:
+            st.session_state[key] = True
+    st.markdown("📌 Indicators:")
+    col_ema, col_vwap, col_bb = st.columns(3)
+    # === Sidebar or wherever you're placing your checkboxes ===
+    ema_check = col_ema.checkbox(
+        "EMA 9",
+        key="indicator_ema9"
+    )
+    vwap_check = col_vwap.checkbox(
+        "VWAP",
+        key="indicator_vwap"
+    )
+    bb_check  = col_bb.checkbox(
+        "Bollinger Bands",
+        key="indicator_bbands"
+    )
+
+    # Now build your dict from session_state
+    indicators = {
+        "ema9":   st.session_state["indicator_ema9"],
+        "vwap":   st.session_state["indicator_vwap"],
+        "bbands": st.session_state["indicator_bbands"],
+    }
     try:
         ticker = st.session_state.sel_ticker
         hist = yf.Ticker(ticker).history(period=timeframe)
@@ -377,7 +449,8 @@ with col1:
         if timeframe == "1d" and not intra and us_now.weekday() >= 5:
             st.info("📅 It's the weekend, after hours unavailable.")
         else:
-            fig = Chart(ticker, timeframe, intra, polygon_key).figure()
+            fig = Chart(ticker, timeframe, intra, polygon_key, indicators=indicators).figure()
+
             if isinstance(fig, tuple) and fig[0] == "polygon_error":
                 code = fig[1]
                 if code == 401:
@@ -391,6 +464,47 @@ with col1:
 
     except Exception as e:
         st.error(f"Could not load chart: {e}")
+
+    # 🧠 AI NEWS
+    with st.expander("🧠 Ticker News", expanded=True):
+        if has_alpha:
+            news = get_news(st.session_state.sel_ticker, limit=news_limit, alpha_api=alpha_key)
+            if not news:
+                st.info("No news found for this ticker.")
+            else:
+                def sentiment_color(sentiment):
+                    if sentiment == "positive":
+                        return "green"
+                    elif sentiment == "negative":
+                        return "red"
+                    else:
+                        return "gray"
+
+                for item in news:
+                    color = sentiment_color(item["sentiment"].lower())
+                    st.markdown(f"""
+                <div style="margin-bottom:0.75rem;">
+                    <span style="font-size:14px;">
+                        📄 <a href="{item['url']}" target="_blank" style="color:#339CFF; text-decoration:none; font-weight:600;">
+                        {item['title']}
+                        </a><br>
+                        <span style="font-size:12px;">
+                            <span style="color:gray;">🕒 {item['timestamp']}</span>
+                            Sentiment: <span style="color:{color}; font-weight:500;">{item['sentiment'].lower()}</span>
+                            Confidence: <span style="color:{color}; font-weight:500;">{item['confidence']}</span>
+                        </span>
+                    </span>
+                </div>
+                """, unsafe_allow_html=True)
+
+        else:
+            st.markdown(
+                "⚠️ <span style='color:orange'>Add your AlphaVantage API key in config.yaml to enable news</span>",
+                unsafe_allow_html=True
+            )
+
+
+
 
     # —— Auto-Refresh Interval ——
     st.markdown("#### Auto-Refresh Interval")

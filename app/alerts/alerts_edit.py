@@ -64,8 +64,12 @@ PRESAVE CHECKS
 def save_alert(view, alert_type, channel, ticker, expr, msg, recipients=None, username=None, edit_idx=None):
     alerts = st.session_state.setdefault("alerts", {"tickers": {}, "scanners": []})
 
+    # Always generate an id if missing
+    def ensure_id(alert, ticker, channel):
+        if "id" not in alert or not alert["id"]:
+            alert["id"] = generate_id(ticker if alert_type == "ticker" else None, channel)
+
     alert = {
-        "id": generate_id(ticker if alert_type == "ticker" else None, channel),
         "expression": expr,
         "message": msg,
         "channel": channel,
@@ -75,16 +79,28 @@ def save_alert(view, alert_type, channel, ticker, expr, msg, recipients=None, us
     if channel == "webhook" and username:
         alert["username"] = username
 
+    ensure_id(alert, ticker if alert_type == "ticker" else None, channel)
+
     if alert_type == "ticker":
         ticker = ticker.upper()
         if ticker not in alerts["tickers"]:
             alerts["tickers"][ticker] = []
         if edit_idx is not None:
+            # If editing, preserve id if present
+            if "id" in alerts["tickers"][ticker][edit_idx]:
+                alert["id"] = alerts["tickers"][ticker][edit_idx]["id"]
+            else:
+                ensure_id(alert, ticker, channel)
             alerts["tickers"][ticker][edit_idx] = alert
         else:
             alerts["tickers"][ticker].append(alert)
     else:
         if edit_idx is not None:
+            # If editing, preserve id if present
+            if "id" in alerts["scanners"][edit_idx]:
+                alert["id"] = alerts["scanners"][edit_idx]["id"]
+            else:
+                ensure_id(alert, None, channel)
             alerts["scanners"][edit_idx] = alert
         else:
             alerts["scanners"].append(alert)
@@ -261,4 +277,3 @@ def show_edit_modal(view, config, wl):
     elif switch_clicked:
         st.session_state["edit_ticker"] = "" if alert_type == "scanner" else "scanner"
         st.rerun()
-

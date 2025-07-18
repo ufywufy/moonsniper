@@ -62,7 +62,11 @@ def build_watchlist_df(tickers: list[str]) -> pd.DataFrame:
                 "Avg Vol":    h["Volume"].rolling(20).mean().iloc[-1] if len(h) >= 20 else h["Volume"].mean(),
                 "Market Cap": mcap,
                 "Float":      info.get("floatShares", None),
+                "PE Ratio":   info.get("trailingPE", None),
+                "EPS":        info.get("trailingEps", None),
+                "Pct Change": ((last["Close"] - h["Close"].iloc[-2]) / h["Close"].iloc[-2]) * 100,
             })
+
 
         except Exception as e:
             print(f"[ERROR] {tkr}: {e}")

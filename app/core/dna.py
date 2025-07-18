@@ -10,8 +10,21 @@ FILTERS_FILE = os.path.abspath(FILTERS_FILE)
 ALERTS_FILE = os.path.abspath(ALERTS_FILE)
 
 FILTER_PATTERN = re.compile(
-    r"^ms:filter,([^,]+),pc<([\d\.]+),rsit<([\d\.]+),vm<([\d\.]+),mcc:([\dK]+),fc:([\dK]+)(,MACD:(True|False))?$"
+    r"^ms:filter,([^,]+)"                    # name
+    r"(,pc<([\d\.]+))?"                      # optional price_ceiling
+    r"(,rsit<([\d\.]+))?"                    # optional rsi_threshold
+    r"(,vm<([\d\.]+))?"                      # optional volume_multiplier
+    r"(,mcc:([\dK]+))?"                      # optional market_cap_ceiling
+    r"(,fc:([\dK]+))?"                       # optional float_ceiling
+    r"(,MACD:(True|False))?"                 # optional MACD
+    r"(,pchg>[+-]?\d+(\.\d+)?)?"             # optional min pct change
+    r"(,ef<[+-]?\d+(\.\d+)?)?"               # optional eps floor
+    r"(,pe<\d+(\.\d+)?)?"                    # optional pe max
+    r"$"
 )
+
+
+
 ALERT_PATTERN = re.compile(
     r"^ms:alert,([^,]+),([^,]+),([^,]+),message:(.+)$"
 )
@@ -27,19 +40,24 @@ def export_dna(data_type):
         for name, profile in filters.items():
             parts = ["ms:filter", name]
             if "price_ceiling" in profile:
-                parts.append(f"pc<{int(profile["price_ceiling"])}")
+                parts.append(f"pc<{int(profile['price_ceiling'])}")
             if "rsi_threshold" in profile:
-                parts.append(f"rsit<{int(profile["rsi_threshold"])}")
+                parts.append(f"rsit<{int(profile['rsi_threshold'])}")
             if "volume_multiplier" in profile:
-                parts.append(f"vm<{float(profile["volume_multiplier"])}")
+                parts.append(f"vm<{float(profile['volume_multiplier'])}")
             if "market_cap_ceiling" in profile:
                 mcc = int(profile["market_cap_ceiling"])
                 parts.append(f"mcc:{format_big(mcc)}")
             if "float_ceiling" in profile:
                 fc = int(profile["float_ceiling"])
                 parts.append(f"fc:{format_big(fc)}")
-            if "macd_enabled" in profile:
-                parts.append(f"MACD:{str(profile["macd_enabled"])}")
+            if "pct_min" in profile:
+                parts.append(f"pchg>{float(profile['pct_min'])}")
+            if "eps_min" in profile:
+                parts.append(f"ef<{float(profile['eps_min'])}")
+            if "pe_max" in profile:
+                parts.append(f"pe<{float(profile['pe_max'])}")
+
             dna_strings.append(",".join(parts))
             print(dna_strings)
 
@@ -52,11 +70,11 @@ def export_dna(data_type):
         for ticker, alerts in alerts_data.get("tickers", {}).items():
             for a in alerts:
                 parts = ["ms:alert", ticker, a["expression"], a["channel"]]
-                parts.append(f"message:{a["message"]}")
+                parts.append(f"message:{a['message']}")
                 dna_strings.append(",".join(parts))
         for a in alerts_data.get("scanners", []):
             parts = ["ms:alert", "*", a["expression"], a["channel"]]
-            parts.append(f"message:{a["message"]}")
+            parts.append(f"message:{a['message']}")
             dna_strings.append(",".join(parts))
 
     # Ensure output directory exists
@@ -101,8 +119,13 @@ def import_dna(data_type, dna_text):
                     profile["market_cap_ceiling"] = parse_big(token[4:])
                 elif token.startswith("fc:"):
                     profile["float_ceiling"] = parse_big(token[3:])
-                elif token.startswith("MACD:"):
-                    profile["macd_enabled"] = token[5:].lower() == "true"
+                elif token.startswith("pchg>"):
+                    profile["pct_min"] = float(token[5:])
+                elif token.startswith("ef<"):
+                    profile["eps_min"] = float(token[5:])
+                elif token.startswith("pe<"):
+                    profile["pe_max"] = float(token[3:])
+
             filters[name] = profile
 
         with open(FILTERS_FILE, "w") as f:

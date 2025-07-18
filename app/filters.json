@@ -1,42 +1,57 @@
 {
-    "Safe Growth": {
-        "price_ceiling": 1000.0,
-        "rsi_threshold": 60,
-        "volume_multiplier": 0.8,
-        "market_cap_ceiling": 1000000000000.0,
-        "float_ceiling": 5000000000.0,
-        "only_positive_macd": true
-    },
-    "RSI Dip < 30": {
-        "price_ceiling": 1000.0,
-        "rsi_threshold": 30,
-        "volume_multiplier": 0.7,
-        "market_cap_ceiling": 5000000000.0,
-        "float_ceiling": 1000000000.0,
-        "only_positive_macd": false
-    },
-    "RSI Spike > 70": {
-        "price_ceiling": 1000.0,
-        "rsi_threshold": 70,
-        "volume_multiplier": 0.5,
-        "market_cap_ceiling": 1000000000000.0,
-        "float_ceiling": 1000000000.0,
-        "only_positive_macd": true
-    },
-    "Moon Sniper": {
-        "price_ceiling": 20.0,
-        "rsi_threshold": 65,
-        "volume_multiplier": 2.0,
-        "market_cap_ceiling": 2000000000.0,
-        "float_ceiling": 50000000.0,
-        "only_positive_macd": true
-    },
-    "Under the Radar": {
-        "price_ceiling": 10.0,
-        "rsi_threshold": 50,
-        "volume_multiplier": 0.7,
-        "market_cap_ceiling": 1000000000.0,
-        "float_ceiling": 25000000.0,
-        "only_positive_macd": false
-    }
+  "Safe Growth": {
+    "price_ceiling": 1000.0,
+    "rsi_threshold": 60,
+    "volume_multiplier": 0.8,
+    "market_cap_ceiling": 1000000000000.0,
+    "float_ceiling": 5000000000.0,
+    "only_positive_macd": true,
+    "pe_max": 50.0,
+    "eps_min": 0.0,
+    "pct_min": -50.0
+  },
+  "RSI Dip < 30": {
+    "price_ceiling": 1000.0,
+    "rsi_threshold": 30,
+    "volume_multiplier": 0.7,
+    "market_cap_ceiling": 5000000000.0,
+    "float_ceiling": 1000000000.0,
+    "only_positive_macd": false,
+    "pe_max": 50.0,
+    "eps_min": -5.0,
+    "pct_min": -20.0
+  },
+  "RSI Spike > 70": {
+    "price_ceiling": 1000.0,
+    "rsi_threshold": 70,
+    "volume_multiplier": 0.5,
+    "market_cap_ceiling": 1000000000000.0,
+    "float_ceiling": 1000000000.0,
+    "only_positive_macd": true,
+    "pe_max": 50.0,
+    "eps_min": 0.0,
+    "pct_min": 5.0
+  },
+  "Moon Sniper": {
+    "price_ceiling": 20.0,
+    "rsi_threshold": 65,
+    "volume_multiplier": 2.0,
+    "market_cap_ceiling": 2000000000.0,
+    "float_ceiling": 50000000.0,
+    "only_positive_macd": true,
+    "pe_max": 999.0,
+    "eps_min": -10.0,
+    "pct_min": 10.0
+  },
+  "Under the Radar": {
+    "price_ceiling": 10.0,
+    "rsi_threshold": 50,
+    "volume_multiplier": 0.7,
+    "market_cap_ceiling": 1000000000.0,
+    "float_ceiling": 25000000.0,
+    "only_positive_macd": false,
+    "pe_max": 40.0,
+    "eps_min": -5.0,
+    "pct_min": -10.0
+  }
 }

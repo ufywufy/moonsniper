@@ -7,40 +7,58 @@ class YamlPicks:
 
     def get(self):
         # pull original filter values from config.yaml
-        orig_price   = float(self.filters["price_ceiling"])
-        orig_rsi     = int(self.filters["rsi_threshold"])
-        orig_vol_mul = float(self.filters["volume_multiplier"])
-        orig_mc      = float(self.filters["market_cap_ceiling"])
-        orig_float   = float(self.filters.get("float_ceiling", 0))
-        orig_macd    = self.filters.get("only_positive_macd", False)
+        price_ceiling   = float(self.filters["price_ceiling"])
+        rsi_threshold   = float(self.filters["rsi_threshold"])
+        volume_multiplier = float(self.filters["volume_multiplier"])
+        market_cap_ceiling = float(self.filters["market_cap_ceiling"])
+        float_ceiling   = float(self.filters.get("float_ceiling", 0))
+        macd_enabled    = self.filters.get("only_positive_macd", False)
+        min_pct_change  = self.filters.get("min_pct_change", None)
+        max_pct_change  = self.filters.get("max_pct_change", None)
+        max_pe_ratio    = self.filters.get("max_pe_ratio", None)
 
-        # apply YAML based filters to the df
-        df_picks = self.df[
-            (self.df["Price"]      <= orig_price) &
-            (self.df["RSI"]        <= orig_rsi) &
-            (self.df["Volume"]     >  orig_vol_mul * self.df["Avg Vol"]) &
-            (self.df["Market Cap"] <= orig_mc) &
-            ((self.df["Float"].isna()) | (self.df["Float"] <= orig_float))
-        ]
+        # base filter
+        cond = (
+            (self.df["Price"] <= price_ceiling) &
+            (self.df["RSI"] <= rsi_threshold) &
+            (self.df["Volume"] > volume_multiplier * self.df["Avg Vol"]) &
+            (self.df["Market Cap"] <= market_cap_ceiling) &
+            ((self.df["Float"].isna()) | (self.df["Float"] <= float_ceiling))
+        )
 
-        if orig_macd:
-            df_picks = df_picks[df_picks["MACD"] > 0]
+        # optional filters
+        if macd_enabled:
+            cond &= self.df["MACD"] > 0
+        if min_pct_change is not None:
+            cond &= self.df["Pct Change"] >= float(min_pct_change)
+        if max_pct_change is not None:
+            cond &= self.df["Pct Change"] <= float(max_pct_change)
+        if max_pe_ratio is not None:
+            cond &= (self.df["PE Ratio"].isna() | (self.df["PE Ratio"] <= float(max_pe_ratio)))
 
+        df_picks = self.df[cond]
         result = {}
+
         for _, row in df_picks.iterrows():
             reasons = []
-            if row["Price"] <= orig_price:
-                reasons.append(f"Price {row["Price"]:.2f}≤{orig_price}")
-            if row["RSI"] <= orig_rsi:
-                reasons.append(f"RSI {row["RSI"]:.1f}≤{orig_rsi}")
-            if row["Volume"] > orig_vol_mul * row["Avg Vol"]:
+            if row["Price"] <= price_ceiling:
+                reasons.append(f"Price {row['Price']:.2f}≤{price_ceiling}")
+            if row["RSI"] <= rsi_threshold:
+                reasons.append(f"RSI {row['RSI']:.1f}≤{rsi_threshold}")
+            if row["Volume"] > volume_multiplier * row["Avg Vol"]:
                 reasons.append("Vol spike")
-            if row["Market Cap"] <= orig_mc:
-                reasons.append(f"MCap≤{orig_mc:,}")
-            if pd.notna(row["Float"]) and row["Float"] <= orig_float:
-                reasons.append(f"Float≤{orig_float:,}")
-            if orig_macd and row["MACD"] > 0:
+            if row["Market Cap"] <= market_cap_ceiling:
+                reasons.append(f"MCap≤{market_cap_ceiling:,}")
+            if pd.notna(row["Float"]) and row["Float"] <= float_ceiling:
+                reasons.append(f"Float≤{float_ceiling:,}")
+            if macd_enabled and row["MACD"] > 0:
                 reasons.append("MACD+")
+            if min_pct_change is not None and row["Pct Change"] >= min_pct_change:
+                reasons.append(f"Pct+{row['Pct Change']:.1f}")
+            if max_pct_change is not None and row["Pct Change"] <= max_pct_change:
+                reasons.append(f"Pct≤{max_pct_change}")
+            if max_pe_ratio is not None and (pd.isna(row["PE Ratio"]) or row["PE Ratio"] <= max_pe_ratio):
+                reasons.append(f"PE≤{max_pe_ratio}")
 
             result[row["Ticker"]] = "; ".join(reasons)
 

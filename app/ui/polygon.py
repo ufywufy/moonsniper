@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
+import streamlit as st
 def get_polygon(ticker, timeframe, api_key):
     """
     Fetch full intraday data (pre-market, regular, post-market) from Polygon.io.

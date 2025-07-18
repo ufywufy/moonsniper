@@ -1,15 +1,22 @@
-watchlist: watchlists/popular.txt
+watchlist: watchlists/troll.txt
 
 filters:
-  price_ceiling: 20.0
-  rsi_threshold: 50
-  volume_multiplier: 2.0
-  market_cap_ceiling: 50000000000000
-  float_ceiling: 1000000000000
-  only_positive_macd: true
+  price_ceiling: 15.0           # tighter sniper threshold
+  rsi_threshold: 55             # only pre-run RSI
+  volume_multiplier: 2.5        # ensure strong breakout volume
+  market_cap_ceiling: 500000000  # $500M cap limit to avoid bloated memes
+  float_ceiling: 15000000       # tighter float (15M)
+  only_positive_macd: true      # filter only MACD bullish
 
-polygon:
-  api_key: "YOUR_API_KEY_HERE"
+  pct_min: 5             # +5% min for breakout
+  eps_min: 5
+  pe_max: 40              # skip highly overvalued junk
+
+api_keys:
+  polygon: "YOUR_API_KEY_HERE"
+  alpha: "YOUR_API_KEY_HERE"
+
+news_limit: 5
 
 alerts:
   default_email: "youremail@domain.com"
