@@ -5,6 +5,7 @@ pyyaml
 requests
 pytz
 ta
+torch
 plotly
 streamlit-aggrid
 transformers
