@@ -99,7 +99,7 @@ def send_alert(channel, message, df, ticker, config, alertjson=None):
         username = alertjson.get("username", "Moon Sniper")
 
         payload = {
-            "content": content,
+            "content": f"{ticker} {content}",
             "username": username
         }
 
