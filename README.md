@@ -2,6 +2,8 @@
 
 Moon Sniper is a completely FREE, open source stock screener and alerting platform you can run locally. Powered by Python + Streamlit. Upload your own `.txt` watchlists and unlock a plethora of awesome tools most platforms hide behind subscriptions:
 
+[![Watch the demo](https://img.youtube.com/vi/KVk3TEjbimY/0.jpg)](https://www.youtube.com/watch?v=KVk3TEjbimY)
+
 ## 🔫 Features
 
 - Interactive table with 12 key stat columns (Price, RSI, % Change, Avg Vol, Market Cap, Float, PE Ratio, EPS, etc.)
