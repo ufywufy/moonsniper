@@ -1,5 +1,0 @@
-ms:filter,Safe Growth,pc<1000,rsit<60,vm<0.8,mcc:1000KKK,fc:5KKK,pchg>-50.0,ef<0.0,pe<50.0
-ms:filter,RSI Dip < 30,pc<1000,rsit<30,vm<0.7,mcc:5KKK,fc:1KKK,pchg>-20.0,ef<-5.0,pe<50.0
-ms:filter,RSI Spike > 70,pc<1000,rsit<70,vm<0.5,mcc:1000KKK,fc:1KKK,pchg>5.0,ef<0.0,pe<50.0
-ms:filter,Moon Sniper,pc<20,rsit<65,vm<2.0,mcc:2KKK,fc:50KK,pchg>10.0,ef<-10.0,pe<999.0
-ms:filter,Under the Radar,pc<10,rsit<50,vm<0.7,mcc:1KKK,fc:25KK,pchg>-10.0,ef<-5.0,pe<40.0

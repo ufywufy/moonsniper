@@ -1,0 +1,5 @@
+app/config.yaml           # local API keys/settings
+app/watchlists/           # your personal watchlists
+alerts/alerts.json        # runtime alerts state
+app/log.txt               # runtime log
+output/                   # exported top_picks files
