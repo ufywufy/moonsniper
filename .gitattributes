@@ -1,0 +1,3 @@
+app/watchlists/*.txt merge=ours
+app/config.yaml      merge=ours
+alerts/alerts.json   merge=ours
