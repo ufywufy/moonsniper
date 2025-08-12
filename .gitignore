@@ -3,3 +3,7 @@ app/watchlists/           # your personal watchlists
 alerts/alerts.json        # runtime alerts state
 app/log.txt               # runtime log
 output/                   # exported top_picks files
+!app/watchlists/.gitkeep
+!app/watchlists/big.txt
+!app/watchlists/popular.txt
+!app/watchlists/troll.txt
