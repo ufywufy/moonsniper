@@ -13,9 +13,8 @@ class YamlPicks:
         market_cap_ceiling = float(self.filters["market_cap_ceiling"])
         float_ceiling   = float(self.filters.get("float_ceiling", 0))
         macd_enabled    = self.filters.get("only_positive_macd", False)
-        min_pct_change  = self.filters.get("min_pct_change", None)
-        max_pct_change  = self.filters.get("max_pct_change", None)
-        max_pe_ratio    = self.filters.get("max_pe_ratio", None)
+        min_pct_change  = self.filters.get("pct_min", None)
+        max_pe_ratio    = self.filters.get("pe_max", None)
 
         # base filter
         cond = (
@@ -31,8 +30,6 @@ class YamlPicks:
             cond &= self.df["MACD"] > 0
         if min_pct_change is not None:
             cond &= self.df["Pct Change"] >= float(min_pct_change)
-        if max_pct_change is not None:
-            cond &= self.df["Pct Change"] <= float(max_pct_change)
         if max_pe_ratio is not None:
             cond &= (self.df["PE Ratio"].isna() | (self.df["PE Ratio"] <= float(max_pe_ratio)))
 
@@ -55,8 +52,6 @@ class YamlPicks:
                 reasons.append("MACD+")
             if min_pct_change is not None and row["Pct Change"] >= min_pct_change:
                 reasons.append(f"Pct+{row['Pct Change']:.1f}")
-            if max_pct_change is not None and row["Pct Change"] <= max_pct_change:
-                reasons.append(f"Pct≤{max_pct_change}")
             if max_pe_ratio is not None and (pd.isna(row["PE Ratio"]) or row["PE Ratio"] <= max_pe_ratio):
                 reasons.append(f"PE≤{max_pe_ratio}")
 

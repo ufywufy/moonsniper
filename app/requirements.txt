@@ -4,8 +4,8 @@ yfinance
 pyyaml
 requests
 pytz
-stocknews
 ta
+torch
 plotly
 streamlit-aggrid
 transformers

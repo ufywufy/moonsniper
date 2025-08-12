@@ -9,26 +9,27 @@ Moon Sniper is a completely FREE, open source stock screener and alerting platfo
 - Custom filter profiles (ex: breakout, dip catcher, moon sniper, safe growth)
 - Export filtered tickers as `.txt` files
 - Advanced filter expressions (ex: RSI < 30 and Price > 40)
-- Intraday and extended hours charts with volume bars and MACD/RSI indicators, auto-refresh every 5 min
+- Intraday and extended hours charts with volume bars and EMA 9, VWAP and Bollinger Bands indicators, custom auto-refresh every x mins
 - Sentiment-analyzed news headlines from AlphaVantage + FinBERT
 - Unlimited custom alerts with filter logic via emails, webhooks, or desktop. No expiration, no limits.
 - DNA codes for profiles and alerts, share and import setups with a click!
 
 All you need is Python, then run `setup.bat` and `main.bat`
 
-## 🚀 v0.2 Update Highlights
+## 🚀 v0.2.1 Update Highlights
 
-- 📈 Added PE Ratio, EPS, and daily % Change to stat table
-- 🧠 AI-powered sentiment analysis on recent news headlines per ticker
-- 🖼️ Integrated dynamic charts with after-hours data, MACD/RSI toggles
-- ⚙️ Smarter caching and performance improvements
-- 🧪 Prepping for ML-compatible CSV output and historical logs
+Moon Sniper v0.2.1 — Quick Update
+New intraday “moves” columns: priceMove (%) , rsiMove (pts), volMove (%). These show change since the last auto-refresh for faster buildup spotting. Compatible with advanced filter expressions and alerts.
 
-Updated config.yaml
-    + added field alpha_key
-    + added field news_limit (headlines shown at a time)
-Updated dna format
-Updated filters/profile
+Column visibility now persists across reruns (right click columns). Your choices are saved/restored via session state.
+
+Bug fixes:
+
+Fixed AgGrid selection (list-of-dicts handling).
+
+Snapshot now dedupes tickers to avoid index errors.
+
+Unified numeric formatter (no more JS parse errors).
 
 ## 🛠️ Getting Started
 

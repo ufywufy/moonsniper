@@ -33,6 +33,26 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout)  # Optional: still shows in terminal
     ]
 )
+def _moves_snapshot(df: pd.DataFrame) -> dict:
+    # keep only the columns we need
+    cols = [c for c in ["Ticker", "Price", "Volume", "RSI"] if c in df.columns]
+    if not cols:
+        return {"values": {}}
+
+    snap = df[cols].copy()
+
+    # drop rows without a ticker and dedupe by ticker (keep the last one)
+    snap = snap.dropna(subset=["Ticker"])
+    snap = snap.drop_duplicates(subset=["Ticker"], keep="last")
+
+    # build { TICKER: {Price, Volume, RSI} }
+    values = {
+        row["Ticker"]: {
+            k: row[k] for k in ["Price", "Volume", "RSI"] if k in snap.columns
+        }
+        for _, row in snap.iterrows()
+    }
+    return {"values": values}
 # Redirect print() to logging.info
 class StreamToLogger:
     def __init__(self, level):
@@ -75,7 +95,7 @@ body {
 </style>
 """
 st.markdown(dark_mode_css, unsafe_allow_html=True)
-st.title("🌒 Moon Sniper v0.2")
+st.title("🌒 Moon Sniper v0.2.1")
 st.markdown("[by @ufywufy](https://github.com/ufywufy)", unsafe_allow_html=True)
 col1, col2 = st.columns([5, 4])
 
@@ -311,6 +331,7 @@ with col1:
     
     d = WatchlistDf(watchlist_path)
     df = d.build_df()
+    _df_for_snapshot = df.copy()
     # apply filters
     view = WatchlistView(df)
     view.apply_filters(price_c, rsi_c, vol_mul, market_cap_c, float_c, macd_c, pe_max, eps_min, pct_min)
@@ -336,13 +357,14 @@ with col1:
 
     # render grid
     st.subheader("📋 Watchlist (click a row)")
-    grid = WatchlistGrid(df_pretty).build_grid()
-    selected = grid.get("selected_rows", [])
-
-    if selected is not None and len(selected) > 0:
-        if len(selected) > 1:
-            selected = [selected[-1]]
-        st.session_state.sel_ticker = selected["Ticker"].iloc[0]
+    r = WatchlistGrid(df_pretty)
+    grid = r.build_grid(col_state=st.session_state.get("watchlist_col_state"))
+    rows = grid.get("selected_rows", []) or []
+    if rows:
+        last = rows[-1]
+        tkr = last.get("Ticker")
+        if tkr:
+            st.session_state.sel_ticker = tkr
 
     #top picks button
     top_picks = df[df["TopPick"] == True]["Ticker"].tolist()
@@ -504,24 +526,31 @@ with col1:
             )
 
 
-
-
     # —— Auto-Refresh Interval ——
     st.markdown("#### Auto-Refresh Interval")
     c1, c2, c3 = st.columns([1, 1, 2])
-    if "auto_hours"   not in st.session_state:
-        st.session_state.auto_hours   = filters.get("refresh_hours", 0)
+
+    if "auto_hours" not in st.session_state:
+        st.session_state.auto_hours = filters.get("refresh_hours", 0)
     if "auto_minutes" not in st.session_state:
         st.session_state.auto_minutes = filters.get("refresh_mins", 5)
 
-    hrs = c1.number_input("Hours",   0, 24, key="auto_hours")
+    hrs = c1.number_input("Hours", 0, 24, key="auto_hours")
     mns = c2.number_input("Minutes", 0, 59, key="auto_minutes")
 
-    interval_ms = (hrs*3600 + mns*60)*1000
-    next_run    = datetime.now() + timedelta(milliseconds=interval_ms)
-    c3.write(f"**Next refresh:** {next_run.strftime('%b %d, %Y %H:%M:%S')}")
-
-    st_autorefresh(interval=interval_ms, limit=None, key="refresh_counter")
+    total_secs = int(hrs) * 3600 + int(mns) * 60
+    if total_secs <= 0:
+        c3.write("**Next refresh:** (auto-refresh off)")
+        refresh_count = st.session_state.get("refresh_counter")  # do not trigger
+    else:
+        interval_ms = max(total_secs * 1000, 1000)  # floor at 1s to prevent thrash
+        next_run = datetime.now() + timedelta(seconds=total_secs)
+        c3.write(f"**Next refresh:** {next_run.strftime('%b %d, %Y %H:%M:%S')}")
+    refresh_count = st_autorefresh(interval=interval_ms, limit=None, key="refresh_counter")
+    last_count = st.session_state.get("last_refresh_counter")
+    if refresh_count != last_count and total_secs > 0:
+        st.session_state["refresh_snapshot"] = _moves_snapshot(_df_for_snapshot)
+        st.session_state["last_refresh_counter"] = refresh_count
 
 
 with col2:
