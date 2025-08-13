@@ -359,12 +359,12 @@ with col1:
     st.subheader("📋 Watchlist (click a row)")
     r = WatchlistGrid(df_pretty)
     grid = r.build_grid(col_state=st.session_state.get("watchlist_col_state"))
-    rows = grid.get("selected_rows", []) or []
-    if rows:
-        last = rows[-1]
-        tkr = last.get("Ticker")
-        if tkr:
-            st.session_state.sel_ticker = tkr
+    selected = grid.get("selected_rows", [])
+
+    if selected is not None and len(selected) > 0:
+        if len(selected) > 1:
+            selected = [selected[-1]]
+        st.session_state.sel_ticker = selected["Ticker"].iloc[0]
 
     #top picks button
     top_picks = df[df["TopPick"] == True]["Ticker"].tolist()
